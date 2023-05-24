@@ -29,7 +29,6 @@ const Attachment = ({ attachment }) => {
     //   break;
     // }
     case "photo": {
-      console.log(attachment);
       const { photo } = attachment;
       const { url } = photo.sizes[3];
       content = (

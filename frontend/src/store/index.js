@@ -1,17 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import newsReducer from "./slices/newsSlice";
-import { combineEpics, createEpicMiddleware } from "redux-observable";
-import { getNewsListEpic, getNewsListWithLastSeenIdEpic } from "./epics";
+import createSagaMiddleware from "redux-saga";
+import saga from "./saga";
 
-const epicMiddleware = createEpicMiddleware();
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: {
     news: newsReducer,
   },
-  middleware: [epicMiddleware],
+  middleware: [sagaMiddleware],
 });
 
-const epic = combineEpics(getNewsListEpic, getNewsListWithLastSeenIdEpic);
-
-epicMiddleware.run(epic);
+sagaMiddleware.run(saga);
